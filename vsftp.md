@@ -48,6 +48,9 @@ vsftpd_log_file=/var/log/vsftpd.log
 密码
 ```
 
+生成虚拟用户认证的db文件
+db_load -T -t hash -f /etc/vsftpd/vuser_passwd.txt /etc/vsftpd/vuser_passwd.db
+
 `vim /etc/pam.d/vsftpd`
 
 ```
@@ -81,3 +84,28 @@ touch /var/log/vsftpd.log
 
 ## 启动
 `service vsftpd start/restart`
+
+## 增加新用户
+* 添加用户和密码
+`vim /etc/vsftpd/vuser_passwd.txt`
+* 生成密码文件
+`db_load -T -t hash -f /etc/vsftpd/vuser_passwd.txt /etc/vsftpd/vuser_passwd.db`
+* 增加权限配置文件
+`vim /etc/vsftpd/vuser_conf/用户名`
+```
+anon_world_readable_only=NO
+write_enable=YES
+anon_mkdir_write_enable=YES
+anon_upload_enable=YES
+anon_other_write_enable=YES
+local_root=目录路径
+```
+* 修改上述目录权限
+* 重启vsftpd
+`service vsftpd restart`
+
+## 调试
+ftp your_ip
+可用如下命令调试
+ls get put
+查看日志
