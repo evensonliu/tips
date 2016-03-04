@@ -105,7 +105,9 @@ local_root=目录路径
 `service vsftpd restart`
 
 ## 调试
-ftp your_ip
-可用如下命令调试
-ls get put
-查看日志
+* ftp your_ip
+* 可用如下命令调试
+
+`ls get put`
+
+* 查看日志
