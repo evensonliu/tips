@@ -146,3 +146,11 @@ USERCTL=no
     ip route add default via 192.168.1.1
     </pre> 
 
+# 安装win7 guest
+<pre>
+qemu-img create -f qcow2 /d/virtual-machine/win7.img 40G 
+
+virt-install --connect qemu:///system --name=win7 --os-variant=win7 --ram=1024 --vcpus=2 --disk path=/data2/kvm/images/win7test.img,format=qcow2,size=40,bus=virtio  --accelerate --vnc --vncport=5910 --vnclisten=0.0.0.0 --network bridge=br0,model=virtio --noautoconsole --cdrom=/data2/kvm/w7.iso
+
+virsh attach-disk win7 /var/lib/libvirt/images/virtio-win.iso hda --type cdrom --mode readonly
+</pre>
